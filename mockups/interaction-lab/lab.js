@@ -11,8 +11,8 @@
       options: [["static", "Scrolls away with the page"], ["sticky", "Stays at the top"], ["hide", "Hides going down, returns going up"]] },
     { key: "extras", label: "Scroll helpers", type: "check",
       options: [["progress", "Progress bar across the top", "off"], ["spy", "Highlight the current section in the menu", "on"], ["totop", "Back-to-top button", "off"]] },
-    { key: "edgescroll", label: "Auto-scroll when the mouse nears the top or bottom edge", type: "radio", def: "off",
-      options: [["off", "Off"], ["gentle", "Gentle"], ["fast", "Faster"]] },
+    { key: "arrows", label: "Scroll arrows at the top and bottom", type: "radio", def: "on",
+      options: [["on", "On: gentle on mouseover, fast after a click"], ["off", "Off"]] },
     { heading: "Mouseover" },
     { key: "cardhover", label: "Cards", type: "radio", def: "lift",
       options: [["none", "No change"], ["lift", "Lift with a shadow"], ["outline", "Green outline and title"], ["tilt", "Tilt toward the mouse"], ["spot", "Green glow follows the mouse"], ["number", "Number fills in, title underlines"]] },
@@ -46,11 +46,11 @@
   }
   defaults();
   try {
-    var saved = JSON.parse(localStorage.getItem("lab-state") || "null");
+    var saved = JSON.parse(localStorage.getItem("lab-state-v3") || "null");
     if (saved) Object.keys(state).forEach(function (k) { if (saved[k]) state[k] = saved[k]; });
   } catch (e) {}
 
-  function save() { try { localStorage.setItem("lab-state", JSON.stringify(state)); } catch (e) {} }
+  function save() { try { localStorage.setItem("lab-state-v3", JSON.stringify(state)); } catch (e) {} }
 
   // ---- elements the lab adds ----
   var progress = document.createElement("div"); progress.className = "lab-progress"; progress.setAttribute("aria-hidden", "true");
@@ -164,42 +164,52 @@
     }, 60);
   }
 
-  // ---- auto-scroll when the pointer nears the top or bottom edge ----
-  var edgeTop = document.createElement("div"); edgeTop.className = "lab-edge top"; edgeTop.textContent = "\u2191 scrolling up";
-  var edgeBottom = document.createElement("div"); edgeBottom.className = "lab-edge bottom"; edgeBottom.textContent = "\u2193 scrolling down";
-  edgeTop.setAttribute("aria-hidden", "true"); edgeBottom.setAttribute("aria-hidden", "true");
-  document.body.appendChild(edgeTop); document.body.appendChild(edgeBottom);
-  var pointer = { y: -1, inside: false, blocked: false }, edgeFrame = null;
-  var ZONE = 90;
-  document.addEventListener("pointermove", function (e) {
-    if (e.pointerType && e.pointerType !== "mouse") return;
-    pointer.y = e.clientY; pointer.inside = true;
-    // do not scroll while the pointer is on something clickable, the options panel, or the open request panel
-    pointer.blocked = !!e.target.closest("a, button, input, select, textarea, label, .lab, #request-section.open");
-    if (!edgeFrame) edgeFrame = requestAnimationFrame(edgeStep);
-  });
-  document.documentElement.addEventListener("pointerleave", function () { pointer.inside = false; });
-  function edgeStep() {
-    edgeFrame = null;
-    var mode = state.edgescroll, dir = 0, strength = 0, h = window.innerHeight;
-    if (mode !== "off" && pointer.inside && !pointer.blocked && !reduceMotion) {
-      if (pointer.y < ZONE) { dir = -1; strength = 1 - pointer.y / ZONE; }
-      else if (pointer.y > h - ZONE) { dir = 1; strength = 1 - (h - pointer.y) / ZONE; }
-    }
-    var max = document.documentElement.scrollHeight - h;
-    if ((dir < 0 && window.scrollY <= 0) || (dir > 0 && window.scrollY >= max - 1)) dir = 0;
-    edgeTop.classList.toggle("on", dir < 0); edgeBottom.classList.toggle("on", dir > 0);
-    if (dir !== 0) {
-      var top = (mode === "fast" ? 22 : 9);
-      window.scrollBy(0, dir * Math.max(1, top * strength * strength));
-      edgeFrame = requestAnimationFrame(edgeStep);
-    }
-  }
+  // ---- scroll arrows: gentle while the mouse is over one, fast after a click ----
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var GENTLE = 4, FAST = 26;
+  var arrowFrame = null, arrowDir = 0, arrowSpeed = 0;
+  function makeArrow(dir) {
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "lab-arrow " + (dir < 0 ? "up" : "down");
+    btn.setAttribute("aria-label", dir < 0 ? "Scroll up" : "Scroll down");
+    btn.innerHTML = '<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="' + (dir < 0 ? "M6 15l6-6 6 6" : "M6 9l6 6 6-6") + '"></path></svg>';
+    var viaMouse = false;
+    btn.addEventListener("pointerenter", function (e) {
+      if (e.pointerType !== "mouse") return;
+      viaMouse = true; arrowDir = dir; arrowSpeed = GENTLE; btn.classList.remove("fast");
+      if (!arrowFrame) arrowFrame = requestAnimationFrame(arrowStep);
+    });
+    btn.addEventListener("pointerleave", function () { viaMouse = false; arrowDir = 0; btn.classList.remove("fast"); });
+    btn.addEventListener("click", function () {
+      if (viaMouse && !reduceMotion) {            // mouse: switch to fast until the pointer leaves
+        arrowDir = dir; arrowSpeed = FAST; btn.classList.add("fast");
+        if (!arrowFrame) arrowFrame = requestAnimationFrame(arrowStep);
+      } else {                                     // keyboard or touch: move one screen
+        window.scrollBy({ top: dir * window.innerHeight * 0.85, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    });
+    document.body.appendChild(btn);
+    return btn;
+  }
+  var arrowUp = makeArrow(-1), arrowDown = makeArrow(1);
+  function arrowStep() {
+    arrowFrame = null;
+    if (!arrowDir || state.arrows !== "on" || reduceMotion) return;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if ((arrowDir < 0 && window.scrollY <= 0) || (arrowDir > 0 && window.scrollY >= max - 1)) return;
+    window.scrollBy({ top: arrowDir * arrowSpeed, behavior: "instant" });
+    arrowFrame = requestAnimationFrame(arrowStep);
+  }
+  function updateArrows() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    arrowUp.classList.toggle("off", window.scrollY <= 4);
+    arrowDown.classList.toggle("off", window.scrollY >= max - 4);
+  }
+  window.addEventListener("scroll", updateArrows, { passive: true });
 
   // ---- apply the current choices ----
   function apply(changed) {
-    ["reveal", "header", "cardhover", "btn", "photo", "request", "progress", "spy", "totop", "edgescroll", "aboutfont", "aboutcolor", "aboutfacts"].forEach(function (k) {
+    ["reveal", "header", "cardhover", "btn", "photo", "request", "progress", "spy", "totop", "arrows", "aboutfont", "aboutcolor", "aboutfacts"].forEach(function (k) {
       root.setAttribute("data-" + k, state[k]);
     });
     // heading-word mode and paragraph highlight share one attribute so they can be combined
@@ -210,7 +220,7 @@
     if (state.request === "panel") { if (!requestSection.classList.contains("open")) requestSection.setAttribute("inert", ""); }
     else { requestSection.classList.remove("open"); backdrop.classList.remove("open"); requestSection.removeAttribute("inert"); }
     if (!changed || changed === "reveal") setupReveal();
-    onScroll();
+    onScroll(); updateArrows();
   }
 
   // ---- control panel ----
