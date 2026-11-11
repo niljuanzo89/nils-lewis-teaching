@@ -2,7 +2,7 @@
 // Paste the form endpoint here once the form service account exists,
 // e.g. "https://formspree.io/f/abcdwxyz". While empty, the form explains
 // that it is not connected yet instead of pretending to send.
-var FORM_ENDPOINT = "";
+var FORM_ENDPOINT = "https://formspree.io/f/xzerpgaa";
 
 // ---- Theme toggle ---------------------------------------------------------
 (function () {
