@@ -15,6 +15,10 @@ index = index.replace('<link rel="stylesheet" href="styles.css">', '<link rel="s
 index = index.replace('<script src="script.js" defer></script>', '<script src="script.js" defer></script>\n<script src="lab.js" defer></script>')
 index = index.replace("Request tutoring →", 'Request tutoring <span class="arr" aria-hidden="true">→</span>')
 index = index.replace("</main>\n", "</main>\n\n" + section, 1)
+index = index.replace("family=Source+Serif+4", "family=Fraunces:opsz,wght@9..144,600&family=Space+Grotesk:wght@700&family=Source+Serif+4", 1)
+for phrase in ["special education", "intervention support", "MTSS/RTI coordination"]:
+    index = index.replace("I've worked in " + phrase if phrase == "special education" else phrase, ("I've worked in " if phrase == "special education" else "") + '<mark class="kw">' + phrase + "</mark>", 1) if phrase != "intervention support" else index.replace("intervention support and MTSS", '<mark class="kw">intervention support</mark> and MTSS', 1)
+assert index.count('<mark class="kw">') == 3
 assert "request-section" in index and "lab.js" in index
 (lab / "index.html").write_text(index)
 (lab / "request.html").write_text(request)

@@ -75,3 +75,64 @@ html[data-request="panel"] .lab-close { display: flex; position: absolute; top: 
   .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
   .site-header, .btn, .arr, .card, .work, .photo, .photo img, #request-section { transition: none !important; }
 }
+
+/* ================= Round 2: more mouseover, About styling, edge scrolling ================= */
+
+/* ---- Cards: tilt toward the pointer, spotlight under the pointer ---- */
+html[data-cardhover="tilt"] .cards, html[data-cardhover="tilt"] .work-grid { perspective: 900px; }
+html[data-cardhover="tilt"] .card, html[data-cardhover="tilt"] .work, html[data-cardhover="tilt"] .card.rv.in, html[data-cardhover="tilt"] .work.rv.in { transition: transform .12s ease-out, box-shadow .2s ease; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); will-change: transform; }
+html[data-cardhover="tilt"] .card:hover, html[data-cardhover="tilt"] .work:hover { box-shadow: 0 16px 34px rgba(31, 29, 43, .14); }
+html[data-cardhover="spot"] .card:hover, html[data-cardhover="spot"] .work:hover { background-image: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(31, 111, 92, .20), transparent 70%); border-color: var(--accent); }
+html[data-cardhover="number"] .card .num { transition: background .2s ease, color .2s ease, padding .2s ease; border-radius: 999px; align-self: flex-start; padding: 2px 0; }
+html[data-cardhover="number"] .card:hover .num { background: var(--accent); color: var(--on-accent); padding: 2px 10px; }
+html[data-cardhover="number"] .card h3, html[data-cardhover="number"] .work h3 { background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 2px no-repeat; transition: background-size .3s ease; align-self: flex-start; padding-bottom: 3px; }
+html[data-cardhover="number"] .card:hover h3, html[data-cardhover="number"] .work:hover h3 { background-size: 100% 2px; }
+
+/* ---- Buttons: colour sweeps across ---- */
+html[data-btn="fill"] .btn { transition: background-size .3s ease, color .25s ease; background-repeat: no-repeat; background-position: 0 0; background-size: 0 100%; }
+html[data-btn="fill"] .btn-outline { background-color: transparent; background-image: linear-gradient(var(--ink), var(--ink)); }
+html[data-btn="fill"] .btn-accent { background-image: linear-gradient(var(--ink), var(--ink)); }
+html[data-btn="fill"] .btn-light { background-image: linear-gradient(#6FD0B6, #6FD0B6); }
+html[data-btn="fill"] .btn:hover { background-size: 100% 100%; filter: none; }
+html[data-btn="fill"] .btn-outline:hover, html[data-btn="fill"] .btn-accent:hover { color: var(--paper); }
+html[data-btn="fill"] .btn:hover .arr { transform: translateX(5px); }
+
+/* ---- About: heading font ---- */
+html[data-aboutfont="fraunces"] .about h2, html[data-aboutfont="fraunces"] .about .facts dt { font-family: Fraunces, "Source Serif 4", Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
+html[data-aboutfont="grotesk"] .about h2, html[data-aboutfont="grotesk"] .about .facts dt { font-family: "Space Grotesk", Inter, system-ui, sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+html[data-aboutfont="mono"] .about h2 { font-family: var(--mono); font-weight: 500; font-size: clamp(24px, 3.4vw, 30px); line-height: 1.3; }
+
+/* ---- About: colours ---- */
+html[data-aboutcolor="panel"] .about, html[data-aboutcolor="dark"] .about, html[data-aboutcolor="green"] .about { padding: 48px; border-radius: 24px; margin-bottom: 80px; color: var(--ink); }
+html[data-aboutcolor="panel"] .about { background: var(--panel); border: 1px solid var(--line); }
+html[data-aboutcolor="dark"] .about { background: #1F1D2B; --ink: #FFFFFF; --body: #DAD8E4; --muted: #C9C7D6; --accent: #6FD0B6; --line: #45434F; --on-accent: #10231E; }
+html[data-aboutcolor="green"] .about { background: #1F6F5C; --ink: #FFFFFF; --body: #E6F3EE; --muted: #D3EAE2; --accent: #FFFFFF; --line: #4C9382; --on-accent: #1F6F5C; }
+@media (max-width: 640px) { html[data-aboutcolor] .about { padding: 28px; } html[data-aboutcolor="paper"] .about { padding: 0 0 80px; } }
+
+/* ---- About: how the words are shown ---- */
+mark.kw { background: none; color: inherit; }
+html.about-hl mark.kw { background: linear-gradient(transparent 58%, rgba(111, 208, 182, .55) 58%); padding: 0 2px; font-weight: 500; color: var(--ink); }
+html[data-aboutwords="reveal"] .about h2 .w { display: inline-block; opacity: 0; transform: translateY(.5em); transition: opacity .45s ease, transform .45s ease; transition-delay: calc(var(--i) * 70ms); }
+html[data-aboutwords="reveal"] .about h2.words-in .w { opacity: 1; transform: none; }
+html[data-aboutwords="accent"] .about h2 .w.key { color: var(--accent); }
+
+/* ---- About: how the facts are shown ---- */
+html[data-aboutfacts="pills"] .facts { display: flex; flex-wrap: wrap; gap: 10px; }
+html[data-aboutfacts="pills"] .facts div { border: 1px solid var(--field); border-radius: 999px; padding: 8px 16px; display: flex; gap: 8px; align-items: baseline; }
+html[data-aboutfacts="pills"] .facts dt { font-family: var(--sans); font-weight: 600; font-size: 15px; }
+html[data-aboutfacts="pills"] .facts dd { font-size: 15px; }
+html[data-aboutfacts="list"] .facts { display: flex; flex-direction: column; gap: 0; }
+html[data-aboutfacts="list"] .facts div { border-top: 1px solid var(--line); padding: 12px 0; display: flex; gap: 16px; align-items: baseline; }
+html[data-aboutfacts="list"] .facts dt { font-size: 20px; flex: 0 0 64px; }
+html[data-aboutfacts="list"] .facts dd { font-size: 15px; }
+
+/* ---- Edge scrolling hint ---- */
+.lab-edge { position: fixed; left: 50%; transform: translateX(-50%); z-index: 35; background: #1F1D2B; color: #FFFFFF; font-family: var(--mono); font-size: 12px; padding: 6px 14px; border-radius: 999px; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+.lab-edge.top { top: 12px; } .lab-edge.bottom { bottom: 12px; }
+.lab-edge.on { opacity: .85; }
+.lab-panel h3 { margin: 6px 0 0; font-family: var(--serif); font-size: 16px; color: #FFFFFF; border-top: 1px solid #55536A; padding-top: 14px; }
+.lab-panel h3:first-of-type { border-top: 0; padding-top: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about h2 .w { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
