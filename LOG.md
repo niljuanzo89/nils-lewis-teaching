@@ -2,6 +2,12 @@
 
 Newest first. Format is described in `WORKFLOW.md`.
 
+## 2026-11-10 - Content decisions and first remote backup
+- Decided (Nils): hero uses "Real understanding, built one step at a time." with his own intro wording; tutoring is in person and online across the San Francisco Bay Area; rate starts at $60 per hour; first session is free.
+- Done: GitHub access granted; `main` and `build/direction-b` pushed.
+- Open: contract and handbook still not located (not in past chats, personal Drive or Gmail; local folders not connected), so the current school stays unnamed. Reply time, availability, photo, LinkedIn, contact email, "What I help with" wording, form service endpoint.
+- Next: fill remaining placeholders, connect and test the form, merge to `main`, set up GitHub Pages.
+
 ## 2026-11-10 - Direction B chosen, first build
 - Decided (Nils): Direction B, tutoring first.
 - Done: built `site/` (home page, tutoring request page, shared styles and script) with light and dark themes; checked at 1280 and 390 px wide in both themes; tested the form's not-connected message.
