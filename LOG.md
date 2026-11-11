@@ -2,6 +2,12 @@
 
 Newest first. Format is described in `WORKFLOW.md`.
 
+## 2026-11-10 - Handbook check and school naming
+- Done: read the 2026-27 Staff Handbook (outside employment, conflicts of interest, intellectual property, social media). Outside work is allowed with conditions; paid services to the school's own families need Head of School approval; paid outside work that may pose a conflict must be disclosed in writing first; naming the school is not addressed directly. The separate employment agreement has not been seen.
+- Decided (Nils): list Tessellations in the work history as current, and do not use it anywhere else to bolster credentials. Rate set to $80 per hour. LinkedIn added to the footer.
+- Done: removed "the students I teach every day" from the gifted card; About paragraph keeps the school unnamed.
+- Open: written disclosure to supervisor (Nils); "What I help with" version; reply time; availability; photo; contact email; form endpoint.
+
 ## 2026-11-10 - Content decisions and first remote backup
 - Decided (Nils): hero uses "Real understanding, built one step at a time." with his own intro wording; tutoring is in person and online across the San Francisco Bay Area; rate starts at $60 per hour; first session is free.
 - Done: GitHub access granted; `main` and `build/direction-b` pushed.
