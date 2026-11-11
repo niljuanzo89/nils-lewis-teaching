@@ -1,0 +1,77 @@
+/* Interaction lab: every effect is switched by a data attribute on <html>,
+   so each one can be lifted into site/styles.css on its own once chosen. */
+
+section, #request-section { scroll-margin-top: 96px; }
+.arr { display: inline-block; transition: transform .18s ease; }
+
+/* ---- Header ---- */
+html[data-header="sticky"] .site-header,
+html[data-header="hide"] .site-header { position: sticky; top: 0; z-index: 20; background: var(--paper); transition: transform .3s ease, box-shadow .3s ease; }
+html.scrolled[data-header="sticky"] .site-header,
+html.scrolled[data-header="hide"] .site-header { box-shadow: 0 6px 20px rgba(31, 29, 43, .08); }
+html.hdr-away[data-header="hide"] .site-header { transform: translateY(-100%); }
+
+/* ---- Scroll reveal ---- */
+html[data-reveal="up"] .rv, html[data-reveal="fade"] .rv { opacity: 0; transition: opacity .6s ease, transform .6s ease; }
+html[data-reveal="up"] .rv { transform: translateY(20px); }
+html[data-reveal="up"] .rv.in, html[data-reveal="fade"] .rv.in { opacity: 1; transform: none; }
+.cards .rv:nth-child(2), .work-grid .rv:nth-child(2), .steps .rv:nth-child(2) { transition-delay: .08s; }
+.cards .rv:nth-child(3), .work-grid .rv:nth-child(3), .steps .rv:nth-child(3) { transition-delay: .16s; }
+.cards .rv:nth-child(4), .work-grid .rv:nth-child(4) { transition-delay: .24s; }
+
+/* ---- Progress bar, current section, back to top ---- */
+.lab-progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: var(--accent); z-index: 60; display: none; }
+html[data-progress="on"] .lab-progress { display: block; }
+html[data-spy="on"] .nav a.current { color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); }
+.lab-top { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 20px; cursor: pointer; z-index: 30; opacity: 0; pointer-events: none; transition: opacity .25s ease; display: none; }
+html[data-totop="on"] .lab-top { display: block; }
+html.scrolled-far[data-totop="on"] .lab-top { opacity: 1; pointer-events: auto; }
+
+/* ---- Card hover ---- */
+html[data-cardhover] .card, html[data-cardhover] .work { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+html[data-cardhover] .card h3, html[data-cardhover] .work h3 { transition: color .2s ease; }
+html[data-cardhover="lift"] .card:hover, html[data-cardhover="lift"] .work:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(31, 29, 43, .12); }
+html[data-cardhover="outline"] .card:hover, html[data-cardhover="outline"] .work:hover { border-color: var(--accent); }
+html[data-cardhover="outline"] .card:hover h3, html[data-cardhover="outline"] .work:hover h3 { color: var(--accent); }
+
+/* ---- Buttons and links ---- */
+html[data-btn="nudge"] .btn { transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease; }
+html[data-btn="nudge"] .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(31, 29, 43, .16); }
+html[data-btn="nudge"] .btn:hover .arr { transform: translateX(5px); }
+html[data-btn="nudge"] .nav a:not(.btn), html[data-btn="nudge"] .site-footer a { background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1.5px no-repeat; transition: background-size .22s ease, color .18s ease; text-decoration: none; }
+html[data-btn="nudge"] .nav a:not(.btn):hover, html[data-btn="nudge"] .site-footer a:hover { background-size: 100% 1.5px; }
+
+/* ---- Photo ---- */
+.photo img { transition: transform .5s ease; }
+.photo { transition: transform .35s ease; }
+html[data-photo="zoom"] .photo:hover img { transform: scale(1.05); }
+html[data-photo="tilt"] .photo { transform: rotate(-2deg); }
+html[data-photo="tilt"] .photo:hover { transform: rotate(0deg); }
+
+/* ---- Request form: on this page, or in a side panel ---- */
+#request-section { display: none; }
+.lab-close { display: none; }
+html[data-request="inline"] #request-section { display: block; border-top: 1px solid var(--line); }
+html[data-request="panel"] #request-section { display: block; position: fixed; top: 0; right: 0; height: 100%; width: min(620px, 100%); background: var(--paper); overflow-y: auto; z-index: 50; transform: translateX(100%); transition: transform .32s ease; box-shadow: -18px 0 40px rgba(31, 29, 43, .18); }
+html[data-request="panel"] #request-section.open { transform: none; }
+html[data-request="panel"] #request-section .request { padding: 72px 28px 40px; gap: 28px; }
+html[data-request="panel"] .lab-close { display: flex; position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 22px; cursor: pointer; }
+.lab-backdrop { position: fixed; inset: 0; background: rgba(21, 20, 28, .45); z-index: 40; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.lab-backdrop.open { opacity: 1; pointer-events: auto; }
+
+/* ---- The lab's own control panel (not part of the site) ---- */
+.lab { position: fixed; left: 16px; bottom: 16px; z-index: 70; font-family: var(--sans); font-size: 14px; }
+.lab-toggle { font: inherit; font-weight: 600; background: #1F1D2B; color: #FFFFFF; border: 1px solid #55536A; border-radius: 999px; padding: 12px 18px; min-height: 44px; cursor: pointer; }
+.lab-panel { margin-bottom: 10px; width: min(330px, calc(100vw - 32px)); max-height: min(70vh, 620px); overflow-y: auto; background: #1F1D2B; color: #FFFFFF; border: 1px solid #55536A; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.lab-panel[hidden] { display: none; }
+.lab-panel p { margin: 0; color: #DAD8E4; font-size: 13px; line-height: 1.45; }
+.lab-panel fieldset { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.lab-panel legend { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #C9C7D6; margin-bottom: 6px; }
+.lab-panel label { display: flex; align-items: center; gap: 10px; min-height: 32px; cursor: pointer; }
+.lab-panel input { width: 16px; height: 16px; accent-color: #6FD0B6; }
+.lab-reset { font: inherit; background: none; color: #FFFFFF; border: 1px solid #55536A; border-radius: 999px; padding: 8px 14px; min-height: 40px; cursor: pointer; align-self: flex-start; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .site-header, .btn, .arr, .card, .work, .photo, .photo img, #request-section { transition: none !important; }
+}
