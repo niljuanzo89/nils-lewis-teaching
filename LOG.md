@@ -2,6 +2,11 @@
 
 Newest first. Format is described in `WORKFLOW.md`.
 
+## 2026-11-10 - Form connected, launch held
+- Done: photo, contact email and LinkedIn added; "What I help with" uses the short version; form connected to Formspree (`FORM_ENDPOINT` in `site/script.js`).
+- Decided (Nils): no public launch before December. Site stays on `build/direction-b`; GitHub Pages stays off.
+- Open: reply-time wording; live test of the form; availability line; repository visibility until launch; disclosure note to supervisor.
+
 ## 2026-11-10 - Handbook check and school naming
 - Done: read the 2026-27 Staff Handbook (outside employment, conflicts of interest, intellectual property, social media). Outside work is allowed with conditions; paid services to the school's own families need Head of School approval; paid outside work that may pose a conflict must be disclosed in writing first; naming the school is not addressed directly. The separate employment agreement has not been seen.
 - Decided (Nils): list Tessellations in the work history as current, and do not use it anywhere else to bolster credentials. Rate set to $80 per hour. LinkedIn added to the footer.
