@@ -6,4 +6,6 @@ Website for Nils Lewis: a portfolio of his teaching career and coursework, plus 
 - Process, backups and logging: see `WORKFLOW.md`
 - What has been done and decided: see `LOG.md`
 
-Status: mockups in review. The site has not been built yet.
+Status: first build of Direction B (tutoring first) is in `site/`, awaiting content and review. Not live yet.
+
+To preview locally, open `site/index.html` in a browser.
