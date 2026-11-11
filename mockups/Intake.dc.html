@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tutoring request form</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0}
+a{color:#1F1D2B}a:hover{color:#45434F}
+</style>
+</helmet>
+<div style="background: #FAFAF7; color: #1F1D2B; font-family: Inter, system-ui, sans-serif; font-size: 17px; line-height: 1.6">
+
+<header style="border-bottom: 1px solid #E4E2DA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center">
+<a href="Main.dc.html" style="font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; letter-spacing: 0.18em; font-size: 15px; text-decoration: none">NILS LEWIS</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 28px; align-items: center; font-size: 15px">
+<a href="Main.dc.html" style="text-decoration: none; padding: 12px 0">Work</a>
+<a href="Main.dc.html" style="text-decoration: none; padding: 12px 0">Tutoring</a>
+<a href="Main.dc.html" style="text-decoration: none; padding: 12px 0">About</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1120px; margin: 0 auto; padding: 72px 32px 96px; display: flex; flex-wrap: wrap; gap: 56px">
+
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: {{accent}}">REQUEST TUTORING</div>
+<h1 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 46px; line-height: 1.1">Tell me about your learner.</h1>
+<p style="margin: 0; color: #45434F">This takes about three minutes. I'll reply within [REPLY TIME] to set up a call.</p>
+<div style="border-top: 1px solid #E4E2DA; padding-top: 22px; display: flex; flex-direction: column; gap: 14px; font-size: 15px; color: #45434F">
+<div><strong style="color: #1F1D2B">Grades:</strong> kindergarten through grade 6</div>
+<div><strong style="color: #1F1D2B">Where:</strong> [IN PERSON IN YOUR AREA / ONLINE]</div>
+<div><strong style="color: #1F1D2B">Rate:</strong> [YOUR RATE]</div>
+<div><strong style="color: #1F1D2B">Availability:</strong> [AFTER-SCHOOL AND WEEKEND TIMES]</div>
+</div>
+<p style="margin: 0; font-size: 14px; color: #5F5D68">Your answers go only to me by email. Please share just the basics here; we can talk through details on the call.</p>
+</div>
+
+<form style="flex: 999 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E4E2DA; border-radius: 20px; padding: 36px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="pname" style="font-size: 14px; font-weight: 600">Your name</label><input id="pname" type="text" autocomplete="name" style="font: inherit; padding: 12px 14px; border: 1px solid #8A8894; border-radius: 10px; background: #FFFFFF; min-height: 48px; box-sizing: border-box"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="pemail" style="font-size: 14px; font-weight: 600">Email</label><input id="pemail" type="email" autocomplete="email" style="font: inherit; padding: 12px 14px; border: 1px solid #8A8894; border-radius: 10px; background: #FFFFFF; min-height: 48px; box-sizing: border-box"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="pphone" style="font-size: 14px; font-weight: 600">Phone <span style="font-weight: 400; color: #5F5D68">(optional)</span></label><input id="pphone" type="tel" autocomplete="tel" style="font: inherit; padding: 12px 14px; border: 1px solid #8A8894; border-radius: 10px; background: #FFFFFF; min-height: 48px; box-sizing: border-box"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="grade" style="font-size: 14px; font-weight: 600">Child's grade</label><select id="grade" style="font: inherit; padding: 12px 14px; border: 1px solid #8A8894; border-radius: 10px; background: #FFFFFF; min-height: 48px; box-sizing: border-box"><option>Choose a grade</option><option>Kindergarten</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option></select></div>
+</div>
+
+<fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px">
+<legend style="font-size: 14px; font-weight: 600; padding: 0; margin-bottom: 10px">What kind of help are you looking for?</legend>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px">
+<label style="display: flex; align-items: center; gap: 12px; border: 1px solid #E4E2DA; border-radius: 10px; padding: 12px 14px; min-height: 48px; box-sizing: border-box; font-size: 15px"><input type="checkbox" style="width: 18px; height: 18px; accent-color: {{accent}}">K-6 math</label>
+<label style="display: flex; align-items: center; gap: 12px; border: 1px solid #E4E2DA; border-radius: 10px; padding: 12px 14px; min-height: 48px; box-sizing: border-box; font-size: 15px"><input type="checkbox" style="width: 18px; height: 18px; accent-color: {{accent}}">Early literacy and phonics</label>
+<label style="display: flex; align-items: center; gap: 12px; border: 1px solid #E4E2DA; border-radius: 10px; padding: 12px 14px; min-height: 48px; box-sizing: border-box; font-size: 15px"><input type="checkbox" style="width: 18px; height: 18px; accent-color: {{accent}}">Gifted and 2e enrichment</label>
+<label style="display: flex; align-items: center; gap: 12px; border: 1px solid #E4E2DA; border-radius: 10px; padding: 12px 14px; min-height: 48px; box-sizing: border-box; font-size: 15px"><input type="checkbox" style="width: 18px; height: 18px; accent-color: {{accent}}">Intervention support</label>
+</div>
+</fieldset>
+
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend style="font-size: 14px; font-weight: 600; padding: 0; margin-bottom: 10px">Preferred format</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 15px">
+<label style="display: flex; align-items: center; gap: 10px; min-height: 44px"><input type="radio" name="format" style="width: 18px; height: 18px; accent-color: {{accent}}">In person</label>
+<label style="display: flex; align-items: center; gap: 10px; min-height: 44px"><input type="radio" name="format" style="width: 18px; height: 18px; accent-color: {{accent}}">Online</label>
+<label style="display: flex; align-items: center; gap: 10px; min-height: 44px"><input type="radio" name="format" style="width: 18px; height: 18px; accent-color: {{accent}}">Either</label>
+</div>
+</fieldset>
+
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="times" style="font-size: 14px; font-weight: 600">Days and times that work</label><input id="times" type="text" placeholder="For example: Tuesdays or Thursdays after 4" style="font: inherit; padding: 12px 14px; border: 1px solid #8A8894; border-radius: 10px; background: #FFFFFF; min-height: 48px; box-sizing: border-box"></div>
+
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="goals" style="font-size: 14px; font-weight: 600">What would you like tutoring to help with?</label><textarea id="goals" rows="5" style="font: inherit; padding: 12px 14px; border: 1px solid #8A8894; border-radius: 10px; background: #FFFFFF; resize: vertical; box-sizing: border-box"></textarea></div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+<button type="button" style="font: inherit; font-weight: 600; font-size: 16px; background: {{accent}}; color: #FFFFFF; border: 0; border-radius: 999px; padding: 14px 28px; min-height: 48px; cursor: pointer">Send request</button>
+<span style="font-size: 14px; color: #5F5D68">You'll see a confirmation, and I'll get your request by email.</span>
+</div>
+</form>
+</main>
+
+<footer style="border-top: 1px solid #E4E2DA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: center; font-size: 14px; color: #5F5D68">
+<div style="font-family: 'IBM Plex Mono', monospace">© 2026 Nils Lewis</div>
+<div style="display: flex; gap: 24px"><a href="Main.dc.html" style="padding: 12px 0">[LINKEDIN]</a><a href="Main.dc.html" style="padding: 12px 0">[EMAIL]</a></div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#4B43C9","options":["#4B43C9","#1F6F5C","#B4491F"]},"$preview":{"width":1280,"height":1800}}'>
+class Component extends DCLogic {
+renderVals() {
+return { accent: this.props.accent ?? '#4B43C9' };
+}
+}
+</script>
+</body>
+</html>
